@@ -3,6 +3,8 @@ package ru.kata.spring.boot_security.demo.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
@@ -10,6 +12,7 @@ import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/admins")
@@ -30,7 +33,6 @@ public class AdminRestController {
 
     @GetMapping
     public ResponseEntity<List<User>> showUsers() {
-
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
@@ -61,5 +63,12 @@ public class AdminRestController {
         user.setId(id);
         userService.update(user);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @ModelAttribute("currentUserRole")
+    public String getCurrentUserRole() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getAuthorities().stream()
+                .map(Object::toString)
+                .collect(Collectors.joining(" "));
     }
 }

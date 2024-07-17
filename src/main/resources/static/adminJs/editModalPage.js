@@ -4,6 +4,7 @@ const id_ed = document.getElementById('edit-id');
 const name_ed = document.getElementById('edit-first_name');
 const age_ed = document.getElementById('edit-age')
 const email_ed = document.getElementById('edit-email');
+const password_ed = document.getElementById('edit-password');
 const editModal = document.getElementById("editModal");
 const closeEditButton = document.getElementById("editClose")
 const bsEditModal = new bootstrap.Modal(editModal);
@@ -19,6 +20,7 @@ async function loadDataForEditModal(id) {
             name_ed.value = `${user.username}`;
             age_ed.value = `${user.age}`;
             email_ed.value = `${user.email}`;
+            password_ed.value = '********';
 
             const roleIds = user.roles.map(role => Number(role.id));
             for (const option of role_ed.options) {
@@ -46,6 +48,7 @@ async function editUser() {
             listOfRole.push(tmp);
         }
     }
+    let passwordValue = password_ed.value === '********' ? null : password_ed.value;
     let method = {
         method: 'PATCH',
         headers: {
