@@ -10,7 +10,7 @@ const closeEditButton = document.getElementById("editClose")
 const bsEditModal = new bootstrap.Modal(editModal);
 
 async function loadDataForEditModal(id) {
-    const  urlDataEd = 'api/admins/users/' + id;
+    const  urlDataEd = '/admin/users/' + id;
     let usersPageEd = await fetch(urlDataEd);
     if (usersPageEd.ok) {
 
@@ -38,7 +38,7 @@ async function loadDataForEditModal(id) {
     }
 }
 async function editUser() {
-    let urlEdit = 'api/admins/users/' + id_ed.value;
+    let urlEdit = '/admin/users/' + id_ed.value;
     let listOfRole = [];
     console.dir(form_ed)
     for (let i=0; i<form_ed.roles.options.length; i++) {

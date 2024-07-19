@@ -6,7 +6,7 @@ form_new.addEventListener('submit', addNewUser);
 
 async function addNewUser(event) {
     event.preventDefault();
-    const urlNew = '/api/admins/newAddUser';
+    const urlNew = '/admin/newAddUser';
 
     let listOfRole = [];
     for (let i = 0; i < rolesSelect.selectedOptions.length; i++) {
@@ -66,7 +66,7 @@ const rolesElement = document.getElementById('roles');
 
 async function getRoles() {
     try {
-        const response = await fetch('/api/admins/getRoles');
+        const response = await fetch('/admin/getRoles');
         if (!response.ok) {
             throw new Error(`Server returned ${response.status} ${response.statusText}`);
         }

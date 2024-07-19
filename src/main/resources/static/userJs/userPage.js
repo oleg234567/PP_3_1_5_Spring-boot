@@ -1,4 +1,4 @@
-const userurl = '/api/user';
+const userurl = '/user/api';
 
 const authUser = fetch(userurl)
     .then(response => response.json())

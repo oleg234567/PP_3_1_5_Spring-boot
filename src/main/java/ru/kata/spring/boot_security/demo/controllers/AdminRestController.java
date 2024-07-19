@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("api/admins")
+@RequestMapping("/admin")
 public class AdminRestController {
     private final UserService userService;
     private final RoleService roleService;
@@ -31,23 +31,18 @@ public class AdminRestController {
         return roleService.getListRoles();
     }
 
-    @GetMapping
-    public ResponseEntity<List<User>> showUsers() {
+    @GetMapping("/api")
+    public ResponseEntity<List<User>> getUsers() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> showUser(@PathVariable("id") Long id) {
+    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
         return new ResponseEntity<> (userService.getById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/userAuth")
-    public ResponseEntity<User> showAuthUser() {
-        return new ResponseEntity<> (userService.getCurrentUser(), HttpStatus.OK);
-    }
-
     @PostMapping("/newAddUser")
-    public ResponseEntity<Void> saveNewUser(@RequestBody User user) {
+    public ResponseEntity<Void> addUser(@RequestBody User user) {
         userService.add(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -59,16 +54,10 @@ public class AdminRestController {
     }
 
     @PatchMapping("/users/{id}")
-    public ResponseEntity<Void> userSaveEdit(@RequestBody User user, @PathVariable Long id ) {
+    public ResponseEntity<Void> updateUser(@RequestBody User user, @PathVariable Long id ) {
         user.setId(id);
         userService.update(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @ModelAttribute("currentUserRole")
-    public String getCurrentUserRole() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getAuthorities().stream()
-                .map(Object::toString)
-                .collect(Collectors.joining(" "));
-    }
+
 }

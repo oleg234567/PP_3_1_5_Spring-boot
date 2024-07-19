@@ -1,4 +1,4 @@
-const adminurl = '/api/admins';
+const adminurl = '/admin/api';
 
 const currentUser = fetch(adminurl)
     .then(response => response.json())

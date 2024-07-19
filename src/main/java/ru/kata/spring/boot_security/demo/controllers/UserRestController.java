@@ -9,7 +9,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 public class UserRestController {
 
     private final UserService userService;
@@ -18,8 +18,8 @@ public class UserRestController {
     public UserRestController(UserService userService) {
         this.userService = userService;
     }
-    @GetMapping
-    public ResponseEntity<User> showUser() {
+    @GetMapping("/api")
+    public ResponseEntity<User> getUser() {
         return new ResponseEntity<> (userService.getCurrentUser(), HttpStatus.OK);
     }
 
