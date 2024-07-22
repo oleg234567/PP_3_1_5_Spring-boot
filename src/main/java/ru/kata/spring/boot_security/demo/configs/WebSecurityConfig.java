@@ -12,8 +12,8 @@ import ru.kata.spring.boot_security.demo.service.CustomUserDetailService;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final String admin = "ADMIN";
-    private final String user = "USER";
+    private static final String admin = "ADMIN";
+    private static final String user = "USER";
 
     private final SuccessUserHandler successUserHandler;
     private final CustomUserDetailService customUserDetailService;

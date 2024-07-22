@@ -9,14 +9,14 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    void add(User user);
-    List<User> getAllUsers();
-    void delete(Long id);
-    void update(User user);
-    User getById(Long id);
-    Optional<User> getByUsername(String userName);
+    void createUser(User user);
+    List<User> findAllUsers();
+    void removeUser(Long id);
+    void updateUser(User user);
+    User getUserById(Long id);
+    Optional<User> getByUsername(String username);
 
-    UserDetails loadUserByUsername(String firstName) throws UsernameNotFoundException;
+    UserDetails loadUserByEmail(String email) throws UsernameNotFoundException;
 
     User getCurrentUser();
 }

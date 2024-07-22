@@ -29,18 +29,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void add(User user) {
+    public void createUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<User> findAllUsers() {
         return userRepository.findAll();
     }
 
     @Override
-    public User getById(Long id) {
+    public User getUserById(Long id) {
         return userRepository.findById(id).get();
     }
 
@@ -51,14 +51,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void delete(Long id) {
+    public void removeUser(Long id) {
         userRepository.deleteById(id);
     }
 
     @Override
     @Transactional
-    public void update(User user) {
-        User oldUser = getById(user.getId());
+    public void updateUser(User user) {
+        User oldUser = getUserById(user.getId());
         if (oldUser.getPassword().equals(user.getPassword()) || "".equals(user.getPassword())) {
             user.setPassword(oldUser.getPassword());
         } else {
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String email) {
+    public UserDetails loadUserByEmail(String email) {
         try {
             User user = userRepository.findByEmail(email);
             if (user == null) {

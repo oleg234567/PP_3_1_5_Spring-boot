@@ -32,31 +32,31 @@ public class AdminRestController {
     }
 
     @GetMapping("/api")
-    public ResponseEntity<List<User>> getUsers() {
-        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
+    public ResponseEntity<List<User>> getAllUsers() {
+        return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
     }
 
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
-        return new ResponseEntity<> (userService.getById(id), HttpStatus.OK);
+        return new ResponseEntity<> (userService.getUserById(id), HttpStatus.OK);
     }
 
     @PostMapping("/newAddUser")
-    public ResponseEntity<Void> addUser(@RequestBody User user) {
-        userService.add(user);
+    public ResponseEntity<Void> createUser(@RequestBody User user) {
+        userService.createUser(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
-        userService.delete(id);
+        userService.removeUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PatchMapping("/users/{id}")
     public ResponseEntity<Void> updateUser(@RequestBody User user, @PathVariable Long id ) {
         user.setId(id);
-        userService.update(user);
+        userService.updateUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
