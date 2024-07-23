@@ -12,8 +12,8 @@ import ru.kata.spring.boot_security.demo.service.CustomUserDetailService;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private static final String admin = "ADMIN";
-    private static final String user = "USER";
+    private static final String ADMIN = "ADMIN";
+    private static final String USER = "USER";
 
     private final SuccessUserHandler successUserHandler;
     private final CustomUserDetailService customUserDetailService;
@@ -30,8 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasRole(admin)
-                .antMatchers("/user/**").hasAnyRole(user, admin)
+                .antMatchers("/admin/**").hasRole(ADMIN)
+                .antMatchers("/user/**").hasAnyRole(USER, ADMIN)
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
